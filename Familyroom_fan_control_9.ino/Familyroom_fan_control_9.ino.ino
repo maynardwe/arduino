@@ -1,6 +1,5 @@
 //TMP36 Pin Variables
 
-#include <LiquidCrystal.h>
 #include <IRremote.h>
 const int pot = 1;
 int sensorSRoom = 0;
@@ -11,26 +10,15 @@ int RECV_PIN = 5;
 IRrecv irrecv(RECV_PIN);
 decode_results results;
 
-//Initialize the library with the numbers of the interface pins
-LiquidCrystal lcd(2, 3, 8, 9, 10, 11);
-
 void setup()
 {
   Serial.begin(9600);
-  Serial.println("Familyroom_fan_control_9");
+  Serial.println("Familyroom_fan_control");
   irrecv.enableIRIn(); // Start the receiver
 
   pinMode(RECV_PIN, INPUT);
   pinMode(sensorSRoom, INPUT);
   pinMode(pot, INPUT);
-
-  //Set up the LCD's number of columns and rows:
-  lcd.begin(16, 2);
-  lcd.setCursor(0, 1);
-  lcd.print("Fan OFF   Diff 3");
-  //Move cursor to second line, first position
-  lcd.setCursor(0, 0);
-  lcd.print("SunR 68  FamR 67");
 }
 
 void loop()
@@ -48,7 +36,6 @@ void loop()
 
   //getting the voltage reading SRoom temperature sensor
   readingSRoom = analogRead(sensorSRoom);
-
 
   // converting that reading to voltage, for 3.3v arduino use 3.3
   voltageSRoom = readingSRoom * 5.0;
